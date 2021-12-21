@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "图片上传",
+  "usingComponents": {
+    "van-uploader": "@vant/weapp/uploader/index"
+  }
+
+}

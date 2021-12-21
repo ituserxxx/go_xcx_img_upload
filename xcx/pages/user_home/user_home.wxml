@@ -1,0 +1,10 @@
+<view wx:for="{{img_list}}" wx:key="idi" ws:for-item="item" class="img">
+  <view>
+    <text>{{item.time_str}}</text>
+  </view>
+  <view class="img_list">
+    <view wx:for="{{item.list}}" wx:key="idj" ws:for-item="item" >
+      <image src="{{item.url}}" alt="" mode='aspectFill' class="img_item" />
+    </view>
+  </view>
+</view>

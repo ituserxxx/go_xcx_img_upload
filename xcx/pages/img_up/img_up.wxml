@@ -1,0 +1,8 @@
+<!--pages//img_up/img_up.wxml-->
+    <van-uploader 
+    file-list="{{ fileList }}"
+     deletable="{{ true }}"
+     show-upload="true"
+     multiple="true"
+      />
+

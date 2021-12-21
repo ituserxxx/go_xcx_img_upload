@@ -1,0 +1,26 @@
+{
+    "pages": [
+        "pages/img_up/img_up",
+        "pages/user_home/user_home"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "Weixin",
+        "navigationBarTextStyle": "black"
+    },
+    "sitemapLocation": "sitemap.json",
+    "tabBar": {
+        "list": [
+          
+            {
+              "pagePath": "pages/img_up/img_up",
+              "text": "上传"
+          },
+            {
+                "pagePath": "pages/user_home/user_home",
+                "text": "我的"
+            }
+        ]
+    }
+}
