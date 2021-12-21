@@ -1,1 +1,11 @@
 /* pages/img_up/img_up.wxss */
+.img{
+margin-bottom: 120rpx;
+}
+.commit{
+width: 100%;
+height: 100rpx;
+left: 300rpx;
+position: fixed; 
+bottom: 0;
+}

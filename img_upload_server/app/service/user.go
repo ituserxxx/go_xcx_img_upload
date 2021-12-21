@@ -20,7 +20,7 @@ func (u *user) Add(req *in_out.AddUserImage) error {
 		list = append(list, g.Map{
 			"img_url":     i2,
 			"user_id":     req.Uid,
-			"create_time": gtime.Now(),
+			"create_time": gtime.Now().Format("Y-m-d H:i:s"),
 			"status":      1,
 		})
 	}
@@ -30,35 +30,47 @@ func (u *user) Add(req *in_out.AddUserImage) error {
 	}
 	return nil
 }
-func (u *user) UserImageList(req *in_out.UserImageListReq) ([]in_out.UserImageListResp, error) {
-	m := dao.UserImage.OmitEmpty().
+func (u *user) UserImageList(req *in_out.UserImageListReq) (in_out.UserImgList, error) {
+	var dd in_out.UserImgList
+	d, err := dao.UserImage.OmitEmpty().
 		Order("id desc").
 		Where("user_id = ?", req.Uid).
-		Page(req.Page, constant.PageMinList)
-	if req.Cid != 0 {
-		m = m.Where("img_category_id =?", req.Cid)
-	}
-	l, err := m.FindAll()
+		Group("DATE_FORMAT(`create_time`, '%Y-%m-%d')").
+		Page(req.Page, constant.PageMinList).
+		FindAll()
 	if err != nil {
-		return nil, err
+		return dd, err
 	}
 	var list []model.UserImage
-	if err := l.Structs(&list); err != nil {
-		return nil, err
+	if err := d.Structs(&list); err != nil {
+		return dd, err
 	}
-	var data []in_out.UserImageListResp
-	for _, i2 := range list {
-		categroyNamme, err := dao.Category.OmitEmpty().Where("id=?", i2.ImgCategoryId).Value("name")
+	var data []in_out.ImgItem
+	for _, v := range list {
+		v1 := v
+		l1, err := dao.UserImage.OmitEmpty().
+			Where("user_id = ?", req.Uid).
+			Where("create_time >= ?", gtime.New(gconv.String(v1.CreateTime)).FormatTo("Y-m-d")).
+			Where("create_time < ?",  gtime.New(gconv.String(v1.CreateTime)).AddDate(0,0,1).FormatTo("Y-m-d")).
+			FindAll()
 		if err != nil {
-			return nil, err
+			return dd, err
 		}
-		data = append(data, in_out.UserImageListResp{
-			ID:                i2.Id,
-			ImgUrl:            i2.ImgUrl,
-			CreateTime:        gconv.String(i2.CreateTime),
-			ImgCategoryId:     i2.ImgCategoryId,
-			ImgCategoryIdDesc: categroyNamme.String(),
-		})
+		var l2 []model.UserImage
+		if err := l1.Structs(&l2); err != nil {
+			return dd, err
+		}
+		var da in_out.ImgItem
+		da.CreateTime = gconv.String(v.CreateTime)
+		for _, v2 := range l2 {
+			da.PicList = append(da.PicList,in_out.ImgItemChild{
+				ID:     v2.Id,
+				ImgUrl: v2.ImgUrl,
+			})
+		}
+		data = append(data,da)
 	}
-	return data, nil
+
+	dd.ImgList = data
+	return dd, nil
 }

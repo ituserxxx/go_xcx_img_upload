@@ -16,7 +16,7 @@ func (qa *qiniuApi) GetToken(r *ghttp.Request) {
 	var resp = &in_out.QiniuResponse{}
 	resp.Token = tools.GetUploadToken()
 	resp.Domain = g.Config().GetString("qiniu.domain")
-	//resp.Region = g.Config().GetString("qiniu.region")
-	resp.Region = "https://up-z0.qiniup.com"
+	resp.Region = g.Config().GetString("qiniu.region")
+	//resp.Region = "https://up-z0.qiniup.com"
 	response.Succ(r, resp)
 }

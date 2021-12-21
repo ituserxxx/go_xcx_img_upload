@@ -1,13 +1,18 @@
 package in_out
 
-type UserImageListResp struct {
+type UserImgList struct {
+	ImgList []ImgItem `json:"img_list"`
+}
+type ImgItem struct {
+	PicList []ImgItemChild `json:"pic_list"`
+	CreateTime string `json:"create_time"`
+}
 
+type ImgItemChild struct {
 	ID int `json:"id"`
 	ImgUrl string `json:"img_url"`
-	CreateTime string `json:"create_time"`
-	ImgCategoryId int `json:"img_category_id"`
-	ImgCategoryIdDesc string `json:"img_category_id_desc"`
 }
+
 
 // TokenResponse .
 type QiniuResponse struct {
