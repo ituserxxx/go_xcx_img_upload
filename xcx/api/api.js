@@ -21,12 +21,15 @@ const userImageAdd = data => {
 const userImageList = data => {
     return request({data:data,url:http+'/user/image/list'})
 };
-
+const delImg = data => {
+    return request({data:data,url:http+'/user/image/del'})
+};
 
 module.exports = {
     getUserSaveInfo,
     getUserLogin,
     getUploadToen,
     userImageAdd,
-    userImageList
+    userImageList,
+    delImg
 }

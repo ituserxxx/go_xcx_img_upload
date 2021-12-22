@@ -3,7 +3,8 @@
   "usingComponents": {
     "van-uploader": "@vant/weapp/uploader/index",
     "van-button": "@vant/weapp/button/index",
-    "van-popup": "@vant/weapp/popup/index"
+    "van-popup": "@vant/weapp/popup/index",
+    "van-dialog": "@vant/weapp/dialog/index"
   }
 
 

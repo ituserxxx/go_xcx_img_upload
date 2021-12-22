@@ -1,0 +1,25 @@
+.my_img{
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    flex-wrap: wrap 
+  }
+  .time_str{
+    margin-top: 20rpx;
+    margin-left: 20rpx;
+  }
+  .img_list{
+    width:800px;
+  }
+  .img_item {
+    /* display:flex; */
+    margin-left: 10rpx;
+    margin-top: 10rpx;
+    float: left;
+  }
+  .video_item{
+    margin-left: 10rpx;
+    margin-top: 10rpx;
+    width: 160rpx;
+    height: 160rpx;
+  }
+  

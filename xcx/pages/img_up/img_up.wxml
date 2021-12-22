@@ -1,11 +1,13 @@
 <!--pages//img_up/img_up.wxml-->
 <view class="img">
-    <van-uploader file-list="{{ fileList }}" 
-    show-upload="true" 
-    multiple="true" 
-    bind:delete="deleteImg"
-    bind:after-read="selectImg"
+    <van-uploader 
+        accept="media"
+        show-upload="true" 
+        multiple="true" 
+        bind:delete="deleteImg"
+        bind:after-read="selectImg"
+        file-list="{{ fileList }}" 
      />
 </view>
-<van-button round type="info" size="small" class="commit" bindtap="commit">立即保存</van-button>
-
+<van-button round type="info" size="normal" class="commit" bindtap="commit">立即保存</van-button>
+<van-dialog id="van-dialog" />

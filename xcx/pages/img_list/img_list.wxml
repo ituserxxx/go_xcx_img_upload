@@ -1,0 +1,46 @@
+<block wx:for="{{img_list}}" wx:key="idi" ws:for-item="item" >
+  <view class="my_img">
+    <view  class="time_str">
+      <text>{{item.create_time}}</text>
+    </view>
+    <view  class="img_list" >
+      <block  wx:for="{{item.pic_list}}" wx:key="idj" ws:for-item="item">
+
+        <view  class="img_item" wx:if="{{item.is_video}}" >
+          <video
+            src="{{item.img_url}}" 
+            object-fit="contain" 
+            enable-play-gesture="true" 
+            enable-auto-rotation="true"
+            play-btn-position="center"
+            class='video_item' 
+            data-item="{{item}}" 
+            bindfullscreenchange="fullScreen"  bindended="closeVideo"  controls
+            bindlongpress="deleteImage"
+          ></video>
+        </view>
+        <!--    bind:click="preview"  -->
+        <view class="img_item" wx:else>
+          <van-image 
+            width="160rpx"
+            height="160rpx" 
+            mode='cover' 
+            src="{{item.img_url}}-min" 
+            class="img_item" 
+            data-item="{{item}}" 
+            bindlongpress="deleteImage" 
+
+            catchtap="onLinkDatail"
+          bindtouchstart="mytouchstart" 
+          bindlongtap="deleteitem" 
+          bindtouchend="mytouchend"
+           />
+        </view>
+      </block>
+    </view>
+  </view>
+</block>
+<van-dialog id="van-dialog" />
+
+<van-empty style="display: {{show_empty}}" description="现在啥都没有哦" />
+

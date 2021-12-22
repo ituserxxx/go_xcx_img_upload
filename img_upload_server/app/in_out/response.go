@@ -11,6 +11,7 @@ type ImgItem struct {
 type ImgItemChild struct {
 	ID int `json:"id"`
 	ImgUrl string `json:"img_url"`
+	IsVideo bool `json:"is_video"`
 }
 
 

@@ -8,12 +8,27 @@ import (
 	"img-xcx-tool/app/in_out"
 	"img-xcx-tool/app/model"
 	"img-xcx-tool/constant"
+	"strings"
 )
 
 var User *user
 
 type user struct{}
 
+func (u *user) DelImg(req *in_out.DelImg) error {
+	_, err := dao.UserImage.OmitEmpty().
+		Where("user_id = ?", req.Uid).
+		Where("status = ?", 1).
+		Where("id = ?", req.Id).
+		Data(model.UserImage{
+			Status: 2,
+		}).
+		Update()
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (u *user) Add(req *in_out.AddUserImage) error {
 	var list g.List
 	for _, i2 := range req.ImgList {
@@ -31,6 +46,7 @@ func (u *user) Add(req *in_out.AddUserImage) error {
 	return nil
 }
 func (u *user) UserImageList(req *in_out.UserImageListReq) (in_out.UserImgList, error) {
+
 	var dd in_out.UserImgList
 	d, err := dao.UserImage.OmitEmpty().
 		Order("id desc").
@@ -48,10 +64,15 @@ func (u *user) UserImageList(req *in_out.UserImageListReq) (in_out.UserImgList, 
 	var data []in_out.ImgItem
 	for _, v := range list {
 		v1 := v
-		l1, err := dao.UserImage.OmitEmpty().
-			Where("user_id = ?", req.Uid).
-			Where("create_time >= ?", gtime.New(gconv.String(v1.CreateTime)).FormatTo("Y-m-d")).
-			Where("create_time < ?",  gtime.New(gconv.String(v1.CreateTime)).AddDate(0,0,1).FormatTo("Y-m-d")).
+		l89 := dao.UserImage.OmitEmpty().
+			Where("user_id = ?", req.Uid)
+		if req.StatusId > 0 {
+			l89 = l89.Where("status = ?", req.StatusId)
+		}
+		//1-正常，2-删除,3-喜欢
+		l1, err := l89.Where("create_time >= ?", gtime.New(gconv.String(v1.CreateTime)).FormatTo("Y-m-d")).
+			Where("create_time < ?", gtime.New(gconv.String(v1.CreateTime)).AddDate(0, 0, 1).FormatTo("Y-m-d")).
+			Order("id desc").
 			FindAll()
 		if err != nil {
 			return dd, err
@@ -61,16 +82,27 @@ func (u *user) UserImageList(req *in_out.UserImageListReq) (in_out.UserImgList, 
 			return dd, err
 		}
 		var da in_out.ImgItem
-		da.CreateTime = gconv.String(v.CreateTime)
+		da.CreateTime = gtime.New(v.CreateTime).Format("Y-m-d")
 		for _, v2 := range l2 {
-			da.PicList = append(da.PicList,in_out.ImgItemChild{
+			da.PicList = append(da.PicList, in_out.ImgItemChild{
 				ID:     v2.Id,
 				ImgUrl: v2.ImgUrl,
+				IsVideo: func() bool {
+					index := strings.LastIndex(v2.ImgUrl, ".")
+					s := []rune(v2.ImgUrl)
+					switch string(s[index:]) {
+					case ".png", ".jpg", ".gif", ".jpeg":
+						return false
+					default:
+						return true
+					}
+				}(),
 			})
 		}
-		data = append(data,da)
+		if len(da.PicList) > 0 {
+			data = append(data, da)
+		}
 	}
-
 	dd.ImgList = data
 	return dd, nil
 }

@@ -1,3 +1,4 @@
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 const qiniu = require("../../utils/qiniuUploader")
 const api =  require("../../api/api.js") ;
 const app = getApp()
@@ -35,16 +36,18 @@ Page({
         qiniuOption:options
       })
     }).catch(e=>{
-      wx.showLoading({
-        title: '初始化失败了，请联系管理员',
-      })
+      Dialog.alert({
+        message: "初始化失败了，请联系管理员~",
+      }).then(() => {
+        // on close
+      });
     })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
       this.getQinniuOption()
   },
 
@@ -58,8 +61,9 @@ Page({
   },
   selectImg:function(res){
     var imgList = []
+    console.log(res.detail)
     for (let key in res.detail.file) {
-      imgList.push({url:res.detail.file[key].url});//thumb
+      imgList.push({url:res.detail.file[key].url});
     }
     this.setData({
       fileList :imgList
@@ -72,11 +76,11 @@ Page({
     }
     api.userImageAdd(data).then(res=>{
       if (res.code == 1){
-        wx.showToast({
-          title: '成功',
-          icon: 'success',
-          duration: 2000
-        })
+        Dialog.alert({
+          message: "保存成功啦~",
+        }).then(() => {
+          // on close
+        });
         this.setData({
           fileList:[],
           saveList:[]

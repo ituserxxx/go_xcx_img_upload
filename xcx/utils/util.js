@@ -21,6 +21,7 @@ module.exports = {
 const getUrl  = ()=>{
   return 'https://jstgs-image.vtian.top/api/v1'
 }
+
 const request = data => {
   return new Promise(function(resolve, reject){
     wx.request({

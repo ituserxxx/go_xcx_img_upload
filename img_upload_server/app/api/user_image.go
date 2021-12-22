@@ -22,7 +22,7 @@ func (ui *userImageApi) Add(r *ghttp.Request) {
 	response.Succ(r,"")
 }
 
-func (ui *userImageApi) List(r *ghttp.Request) {
+func (ui *userImageApi) UserImageList(r *ghttp.Request) {
 	var req *in_out.UserImageListReq
 	if err := r.Parse(&req);err !=nil{
 		response.Err(r,constant.LogicError,err.Error())
@@ -32,4 +32,16 @@ func (ui *userImageApi) List(r *ghttp.Request) {
 		response.Err(r,constant.LogicError,err.Error())
 	}
 	response.Succ(r,l)
+}
+
+func (ui *userImageApi) DelImg(r *ghttp.Request) {
+	var req *in_out.DelImg
+	if err := r.Parse(&req);err !=nil{
+		response.Err(r,constant.LogicError,err.Error())
+	}
+	err := service.User.DelImg(req)
+	if err != nil {
+		response.Err(r,constant.LogicError,err.Error())
+	}
+	response.Succ(r,"ok")
 }

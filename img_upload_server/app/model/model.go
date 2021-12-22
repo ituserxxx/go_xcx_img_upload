@@ -5,33 +5,26 @@
 package model
 
 import (
-	"github.com/gogf/gf/os/gtime"
+    "github.com/gogf/gf/os/gtime"
 )
 
-// Category is the golang structure for table category.
-type Category struct {
-	Id     int    `orm:"id,primary" json:"id"`     //
-	Name   string `orm:"name"       json:"name"`   //
-	Status int    `orm:"status"     json:"status"` // 1-正常，2-禁用
-	UserId int    `orm:"user_id"    json:"userId"` //
-}
 
 // User is the golang structure for table user.
 type User struct {
-	Id         int         `orm:"id,primary"  json:"id"`         //
-	Nickname   string      `orm:"nickname"    json:"nickname"`   //
-	Openid     string      `orm:"openid"      json:"openid"`     //
-	SessionKey string      `orm:"session_key" json:"sessionKey"` //
-	AvatarUrl  string      `orm:"avatar_url"  json:"avatarUrl"`  //
-	CreateTime *gtime.Time `orm:"create_time" json:"createTime"` //
+    Id         int         `orm:"id,primary"  json:"id"`         //   
+    Nickname   string      `orm:"nickname"    json:"nickname"`   //   
+    Openid     string      `orm:"openid"      json:"openid"`     //   
+    SessionKey string      `orm:"session_key" json:"sessionKey"` //   
+    AvatarUrl  string      `orm:"avatar_url"  json:"avatarUrl"`  //   
+    CreateTime *gtime.Time `orm:"create_time" json:"createTime"` //   
 }
+
 
 // UserImage is the golang structure for table user_image.
 type UserImage struct {
-	Id            int         `orm:"id,primary"      json:"id"`            //
-	ImgUrl        string      `orm:"img_url"         json:"imgUrl"`        //
-	UserId        int         `orm:"user_id"         json:"userId"`        //
-	CreateTime    *gtime.Time `orm:"create_time"     json:"createTime"`    //
-	Status        int         `orm:"status"          json:"status"`        // 1-正常，2-删除
-	ImgCategoryId int         `orm:"img_category_id" json:"imgCategoryId"` //
+    Id         int         `orm:"id,primary"  json:"id"`         //                          
+    ImgUrl     string      `orm:"img_url"     json:"imgUrl"`     //                          
+    UserId     int         `orm:"user_id"     json:"userId"`     //                          
+    CreateTime *gtime.Time `orm:"create_time" json:"createTime"` //                          
+    Status     int         `orm:"status"      json:"status"`     // 1-正常，2-删除,3-喜欢的  
 }
