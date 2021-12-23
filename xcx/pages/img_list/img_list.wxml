@@ -16,7 +16,10 @@
             class='video_item' 
             data-item="{{item}}" 
             bindfullscreenchange="fullScreen"  bindended="closeVideo"  controls
-            bindlongpress="deleteImage"
+            catchtap="onLinkDatail"
+            bindtouchstart="mytouchstart" 
+            bindlongtap="deleteitem" 
+            bindtouchend="mytouchend"
           ></video>
         </view>
         <!--    bind:click="preview"  -->
@@ -28,12 +31,10 @@
             src="{{item.img_url}}-min" 
             class="img_item" 
             data-item="{{item}}" 
-            bindlongpress="deleteImage" 
-
             catchtap="onLinkDatail"
-          bindtouchstart="mytouchstart" 
-          bindlongtap="deleteitem" 
-          bindtouchend="mytouchend"
+            bindtouchstart="mytouchstart" 
+            bindlongtap="deleteitem" 
+            bindtouchend="mytouchend"
            />
         </view>
       </block>
@@ -44,3 +45,22 @@
 
 <van-empty style="display: {{show_empty}}" description="现在啥都没有哦" />
 
+<van-dialog
+  use-slot
+  title="请选择"
+  show="{{ is_ope }}"
+  show-cancel-button
+  bind:confirm="confirm_ope"
+>
+<van-radio-group value="{{ ope_select }}">
+  <van-cell-group>
+    <van-cell title="收藏" clickable data-name="1" bind:click="ope_select">
+      <van-radio slot="right-icon" name="1" />
+    </van-cell>
+    <van-cell title="删除" clickable data-name="2" bind:click="ope_select">
+      <van-radio slot="right-icon" name="2" />
+    </van-cell>
+  </van-cell-group>
+</van-radio-group>
+
+</van-dialog>

@@ -36,3 +36,7 @@ type DelImg struct {
 	Uid int `json:"uid" v:"required"`
 	Id int `json:"id" v:"required"`
 }
+type LoveImg struct {
+	Uid int `json:"uid" v:"required"`
+	Id int `json:"id" v:"required"`
+}

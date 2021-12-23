@@ -12,6 +12,7 @@ func init() {
 		group.ALL("/login", api.Login.Login)
 		group.ALL("/user/image/list", api.UserImage.UserImageList)
 		group.ALL("/user/image/del", api.UserImage.DelImg)
+		group.ALL("/user/image/love", api.UserImage.LoveImg)
 		group.ALL("/user/image/add", api.UserImage.Add)
 		group.ALL("/upload/token", api.QiniuApi.GetToken)
 

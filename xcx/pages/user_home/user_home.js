@@ -45,6 +45,9 @@ Page({
     })
   },
   deleteImage: function (e) {
+    if (this.data.default_tab_name == "rubbish"){
+      return
+    }
     var imgId = e.currentTarget.dataset.item.id
     wx.showModal({
       title: '提示',
@@ -76,18 +79,21 @@ Page({
     })
   },
   change_tab:function(e){
-    this.setData({
-      img_list:[]
-    })
-     var name = e.detail.name
-    this.setData({
-      default_tab_name:name
-    })
-    if (name == "rubbish"){
-      this.getImgList(2)
+      this.setData({
+        img_list:[]
+      })
+      var name = e.detail.name
+      this.setData({
+        default_tab_name:name
+      })
+      if (name == "rubbish"){
+        this.getImgList(2)
+      }
+      if (name == "love") {
+        this.getImgList(3)
     }
-    if (name == "lova") {
-      this.getImgList(3)
-  }
-}
+  },
+  onShow: function () {
+    this.onLoad();
+  },
 })

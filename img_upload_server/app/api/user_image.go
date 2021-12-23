@@ -45,3 +45,15 @@ func (ui *userImageApi) DelImg(r *ghttp.Request) {
 	}
 	response.Succ(r,"ok")
 }
+
+func (ui *userImageApi)LoveImg(r *ghttp.Request)  {
+	var req *in_out.LoveImg
+	if err := r.Parse(&req);err !=nil{
+		response.Err(r,constant.LogicError,err.Error())
+	}
+	err := service.User.LoveImg(req)
+	if err != nil {
+		response.Err(r,constant.LogicError,err.Error())
+	}
+	response.Succ(r,"ok")
+}

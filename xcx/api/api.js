@@ -24,6 +24,9 @@ const userImageList = data => {
 const delImg = data => {
     return request({data:data,url:http+'/user/image/del'})
 };
+const loveImg = data => {
+    return request({data:data,url:http+'/user/image/love'})
+};
 
 module.exports = {
     getUserSaveInfo,
@@ -31,5 +34,6 @@ module.exports = {
     getUploadToen,
     userImageAdd,
     userImageList,
-    delImg
+    delImg,
+    loveImg
 }

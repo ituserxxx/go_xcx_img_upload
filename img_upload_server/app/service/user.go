@@ -29,6 +29,20 @@ func (u *user) DelImg(req *in_out.DelImg) error {
 	}
 	return nil
 }
+func (u *user) LoveImg(req *in_out.LoveImg) error {
+	_, err := dao.UserImage.OmitEmpty().
+		Where("user_id = ?", req.Uid).
+		Where("status = ?", 1).
+		Where("id = ?", req.Id).
+		Data(model.UserImage{
+			Status: 3,
+		}).
+		Update()
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (u *user) Add(req *in_out.AddUserImage) error {
 	var list g.List
 	for _, i2 := range req.ImgList {

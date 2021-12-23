@@ -1,7 +1,6 @@
 # HTTP Server
 [server]
 Address = ":6108"
-#ServerRoot = "public"
 ServerAgent = "jstgs-image-api"
 LogPath = "/tmp/log/gf-app/jstgs-images"
 
@@ -11,11 +10,6 @@ Path = "/tmp/log/jstgs-images"
 Level = "all"
 Stdout = true
 
-# Template.
-#[viewer]
-#Path = "template"
-#DefaultFile = "index.html"
-#Delimiters = ["{{", "}}"]
 
 # Database.
 [database]

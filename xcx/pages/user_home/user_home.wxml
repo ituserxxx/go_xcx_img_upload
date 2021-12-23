@@ -1,6 +1,6 @@
 <van-dialog id="van-dialog" />
 
-<van-tabs active="{{default_tab_name}}" bind:click="change_tab">
+<van-tabs active="{{default_tab_name}}" bind:change="change_tab">
   <van-tab title="Love" name="love" >
    <block wx:if="{{ img_list.length > 0}}">
     <block wx:for="{{img_list}}" wx:key="idi" ws:for-item="item">
