@@ -12,7 +12,7 @@ Page({
     is_ope:false,
     ope_obj_id:0,
     ope_select:0,
-
+    fullScreen:false,
   },
   onLoad() {
     this.getImgList()
@@ -41,11 +41,19 @@ Page({
   },
   //预览图片，放大预览
   preview(event) {
+    console.log("预览内容：",event)
     let currentUrl = event.currentTarget.dataset.item.img_url
-    wx.previewImage({
-      current: currentUrl, // 当前显示图片的http链接
-      urls: [currentUrl]// 需要预览的图片http链接列表
-    })
+    if (event.currentTarget.dataset.item.is_video){
+      wx.previewMedia({
+        sources: [currentUrl],
+      })
+    }else{
+      wx.previewImage({
+        current: currentUrl, // 当前显示图片的http链接
+        urls: [currentUrl]// 需要预览的图片http链接列表
+      })
+    }
+
   },
 
   mytouchstart: function (e) { 

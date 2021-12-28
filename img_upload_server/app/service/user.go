@@ -18,7 +18,6 @@ type user struct{}
 func (u *user) DelImg(req *in_out.DelImg) error {
 	_, err := dao.UserImage.OmitEmpty().
 		Where("user_id = ?", req.Uid).
-		Where("status = ?", 1).
 		Where("id = ?", req.Id).
 		Data(model.UserImage{
 			Status: 2,
@@ -32,7 +31,6 @@ func (u *user) DelImg(req *in_out.DelImg) error {
 func (u *user) LoveImg(req *in_out.LoveImg) error {
 	_, err := dao.UserImage.OmitEmpty().
 		Where("user_id = ?", req.Uid).
-		Where("status = ?", 1).
 		Where("id = ?", req.Id).
 		Data(model.UserImage{
 			Status: 3,

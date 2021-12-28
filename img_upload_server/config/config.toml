@@ -36,3 +36,10 @@ AccessKey = "_a84dBRWph1OoEYiGnFO7ZTJaFeHrf5ssjrCB4dT"
 SecretKey = "LJ-oWZiEWFoixk09cQJUWu2CGRv-rtOwfkkYsUHk"
 Bucket = "qiniu_storage"
 Region = "https://up-z0.qiniup.com"
+
+[gzh]
+appid="wx6c12f09296b8900e"
+appsecret="32177ebc8e8f50c22dfb5258a7576c9a"
+token="user_xxx"
+EncodingAESKey="h2hrih0JpqkNS5fpkRRH6NX7C74wQI681nLKSBdXs4b"
+

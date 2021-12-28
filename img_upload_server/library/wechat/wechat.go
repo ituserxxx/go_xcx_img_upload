@@ -7,18 +7,19 @@ import (
 	"github.com/silenceper/wechat/v2/miniprogram"
 	"github.com/silenceper/wechat/v2/miniprogram/auth"
 	miniConfig "github.com/silenceper/wechat/v2/miniprogram/config"
+	offConfig "github.com/silenceper/wechat/v2/officialaccount/config"
 	"github.com/silenceper/wechat/v2/miniprogram/encryptor"
+	"github.com/silenceper/wechat/v2/officialaccount"
 )
 
 func GetMini() *miniprogram.MiniProgram {
 	wc := wechat.NewWechat()
-	redisCache := &cache.RedisOpts{}
-	cacheClient := cache.NewRedis(redisCache)
+	cacheClient := cache.NewMemory()
 	wc.SetCache(cacheClient)
 	cfg := &miniConfig.Config{
 		AppID:     g.Config().GetString("mini_program.appid"),
 		AppSecret: g.Config().GetString("mini_program.secret"),
-		Cache:     nil,
+		Cache:     cacheClient,
 	}
 	return wc.GetMiniProgram(cfg)
 }
@@ -45,4 +46,18 @@ func DecryptMsg(SessionKey, EncryptedData, Iv string) (*encryptor.PlainData, err
 		return nil, err
 	}
 	return info, nil
+}
+
+func GetGzh() *officialaccount.OfficialAccount{
+	wc := wechat.NewWechat()
+	cacheClient := cache.NewMemory()
+	wc.SetCache(cacheClient)
+	cfg := &offConfig.Config{
+		AppID:     g.Config().GetString("gzh.appid"),
+		AppSecret: g.Config().GetString("gzh.appsecret"),
+		Token:     g.Config().GetString("gzh.token"),
+		EncodingAESKey: g.Config().GetString("gzh.EncodingAESKey"),
+		Cache: cacheClient,
+	}
+	return wc.GetOfficialAccount(cfg)
 }
